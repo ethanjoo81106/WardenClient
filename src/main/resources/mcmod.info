@@ -1,0 +1,16 @@
+[
+{
+  "modid": "warden",
+  "name": "Warden",
+  "description": "Skyblock Utility Mod",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Toot"],
+  "credits": "The goat",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
