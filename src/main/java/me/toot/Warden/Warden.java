@@ -2,6 +2,7 @@ package me.toot.Warden;
 
 import me.toot.Warden.Commands.WardenCommand;
 import me.toot.Warden.Guis.MainGui;
+import me.toot.Warden.config.Config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.client.ClientCommandHandler;
@@ -14,6 +15,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Keyboard;
 
+import java.io.File;
+
 @Mod(modid = Warden.MODID, name = Warden.NAME, version = Warden.VERSION, clientSideOnly = true)
 public class Warden {
     public static final String MODID = "warden";
@@ -24,6 +27,9 @@ public class Warden {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event){
+        File configFile = event.getSuggestedConfigurationFile();
+        Config.init(configFile);
+
         openGuiKey = new KeyBinding("Open GUI", Keyboard.KEY_RSHIFT, "key.categories.misc");
         ClientRegistry.registerKeyBinding(openGuiKey);
     }

@@ -1,0 +1,6 @@
+Create another instance of GUIButton for a toggle switch.
+Add more to the Configuration.
+
+//// make look nicer (like idc but ye)
+//// Search bar for features
+//// Scrollable area for features
