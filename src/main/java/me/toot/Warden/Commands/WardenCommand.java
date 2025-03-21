@@ -1,32 +1,48 @@
 package me.toot.Warden.Commands;
 
-import me.toot.Warden.gui.IGuiHandler;
+import me.toot.Warden.Guis.MainGui;
+import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.util.ChatComponentText;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.InputEvent;
 
-public class WardenCommand extends CommandBase{
+import java.util.concurrent.atomic.AtomicBoolean;
+
+public class WardenCommand extends CommandBase {
+    private final AtomicBoolean shouldOpenGui = new AtomicBoolean(false);
+
+    public WardenCommand() {
+        MinecraftForge.EVENT_BUS.register(this);
+    }
 
     @Override
-    public String getCommandName(){
+    public String getCommandName() {
         return "warden";
     }
 
     @Override
-    public String getCommandUsage(ICommandSender sender){
+    public String getCommandUsage(ICommandSender sender) {
         return "/Warden";
     }
 
     @Override
-    public void processCommand(ICommandSender sender, String[] args){
-        sender.addChatMessage(new ChatComponentText(String.valueOf(args.length)));
-        sender.addChatMessage(new ChatComponentText(String.valueOf("Attempting to open GUI")));
+    public void processCommand(ICommandSender sender, String[] args) {
+        shouldOpenGui.set(true);
+    }
 
-        IGuiHandler.openGui(IGuiHandler.TEST_GUI_2);
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public void onInput(InputEvent event) {
+        if (shouldOpenGui.get()) {
+            shouldOpenGui.set(false);
+            Minecraft.getMinecraft().displayGuiScreen(new MainGui());
+        }
     }
 
     @Override
-    public int getRequiredPermissionLevel(){
+    public int getRequiredPermissionLevel() {
         return 0;
     }
 }
